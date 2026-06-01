@@ -16,12 +16,12 @@ public class InstrumentoController {
     }
 
     @GetMapping
-    public List<Instrumento> obtenerInstrumentos(){
+    public List<Instrumento> getInstrumentos(){
         return this.instrumentoRepository.findAll();
     }
 
     @PostMapping
-    public Instrumento registrarInstrumento(@RequestBody Instrumento instrumento){
+    public Instrumento insertInstrumento(@RequestBody Instrumento instrumento){
         return this.instrumentoRepository.save(instrumento);
     }
 
@@ -29,4 +29,10 @@ public class InstrumentoController {
     public Instrumento findByModelo(@PathVariable String modelo){
         return this.instrumentoRepository.findByModelo(modelo);
     }
+
+    @PutMapping("instrumento/modificar")
+    public Instrumento modifyInstrumento(@RequestBody Instrumento instrumento){
+        return this.instrumentoRepository.save(instrumento);
+    }
+
 }
