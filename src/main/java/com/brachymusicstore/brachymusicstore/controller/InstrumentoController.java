@@ -2,6 +2,7 @@ package com.brachymusicstore.brachymusicstore.controller;
 
 import com.brachymusicstore.brachymusicstore.entity.Instrumento;
 import com.brachymusicstore.brachymusicstore.repository.InstrumentoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/instrumentos")
 public class InstrumentoController {
+    @Autowired
     private final InstrumentoRepository instrumentoRepository;
 
     public InstrumentoController(InstrumentoRepository instrumentoRepository) {
@@ -25,12 +27,12 @@ public class InstrumentoController {
         return this.instrumentoRepository.save(instrumento);
     }
 
-    @GetMapping("modelo/{modelo}")
+    @GetMapping("/modelo/{modelo}")
     public Instrumento findByModelo(@PathVariable String modelo){
         return this.instrumentoRepository.findByModelo(modelo);
     }
 
-    @PutMapping("instrumento/modificar")
+    @PutMapping("/instrumento/modificar")
     public Instrumento modifyInstrumento(@RequestBody Instrumento instrumento){
         return this.instrumentoRepository.save(instrumento);
     }
