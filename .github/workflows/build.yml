@@ -1,4 +1,4 @@
-name: Build Spring Boot
+name: Build and Publish Docker Image
 
 on:
   push:
@@ -27,8 +27,18 @@ jobs:
       - name: Dar permisos al wrapper de Maven
         run: chmod +x mvnw
 
-      - name: Compilar y probar
-        run: ./mvnw clean verify
+      - name: Compilar proyecto
+        run: ./mvnw clean package
 
-      - name: Construir imagen Docker
-        run: docker build -t brachymusicstore .
+      - name: Login en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Construir y publicar imagen
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: edzon263/brachymusicstore:latest
